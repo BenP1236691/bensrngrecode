@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理面板</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>管理面板</h1>
+    <div>
+        <h2>添加光環</h2>
+        <input type="text" id="auraName" placeholder="光環名稱">
+        <input type="number" id="auraProbability" placeholder="光環概率">
+        <button onclick="addAura()">添加光環</button>
+    </div>
+    <div>
+        <h2>添加藥水</h2>
+        <input type="text" id="potionName" placeholder="藥水名稱">
+        <input type="text" id="potionEffect" placeholder="藥水效果">
+        <input type="number" id="potionDuration" placeholder="藥水持續時間">
+        <button onclick="addPotion()">添加藥水</button>
+    </div>
+
+    <script>
+        function addAura() {
+            let name = document.getElementById('auraName').value;
+            let probability = document.getElementById('auraProbability').value;
+            // Add the aura to the backend
+            fetch('http://45.32.48.100:3000/add-aura', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, probability: probability })
+            }).then(response => response.json())
+              .then(data => alert('光環已添加'))
+              .catch(error => console.error('錯誤:', error));
+        }
+
+        function addPotion() {
+            let name = document.getElementById('potionName').value;
+            let effect = document.getElementById('potionEffect').value;
+            let duration = document.getElementById('potionDuration').value;
+            // Add the potion to the backend
+            fetch('http://45.32.48.100:3000/add-potion', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, effect: effect, duration: duration })
+            }).then(response => response.json())
+              .then(data => alert('藥水已添加'))
+              .catch(error => console.error('錯誤:', error));
+        }
+    </script>
+</body>
+</html>

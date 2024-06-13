@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>庫存</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>你的庫存</h1>
+    <div id="inventoryList"></div>
+    <button onclick="goBack()">返回</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        window.onload = function() {
+            let rolls = JSON.parse(localStorage.getItem('rolls')) || [];
+            let inventoryList = document.getElementById('inventoryList');
+            rolls.forEach(roll => {
+                let listItem = document.createElement('div');
+                listItem.textContent = roll;
+                inventoryList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
